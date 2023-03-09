@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 namespace Entidades.Entidades
 {
     [Table("TB_NOTICIA")]
+    // herdando classe Notifica para exibir mensagens de validação da noticia 
     public class Noticia : Notifica
     {
         [Column("NTC_ID")]
