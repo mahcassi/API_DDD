@@ -88,15 +88,5 @@ namespace Infra.Repositorio.Genericos
                 _disposedValue = true;
             }
         }
-
-        Task<T> IGenericos<T>.Atualizar(T Objeto)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<T> IGenericos<T>.Excluir(T Objeto)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
