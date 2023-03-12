@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace Dominio.Servicos
 {
-    internal class ServicoNoticia : IServicoNoticia
+    public class ServicoNoticia : IServicoNoticia
     {
         private readonly INoticia _INoticia;
 
-        public ServicoNoticia(INoticia INoticia)
+        public ServicoNoticia (INoticia INoticia)
         {
             _INoticia = INoticia;
         }

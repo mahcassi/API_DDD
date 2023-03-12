@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Infra.Repositorio
 {
@@ -30,7 +31,8 @@ namespace Infra.Repositorio
                         new ApplicationUser {
                             Email = email,
                             PasswordHash = senha,
-                            Idade = idade 
+                            Idade = idade,
+                            Celular = celular
                         });
 
                     await data.SaveChangesAsync();
@@ -44,6 +46,27 @@ namespace Infra.Repositorio
 
             return true;
             
+        }
+
+        public async Task<bool> ExisteUsuario(string email, string senha)
+        {
+
+            try
+            {
+                using (var data = new Contexto(_optionsBuilder))
+                {
+                    return await data.ApplicationUser
+                        .Where(u => u.Email.Equals(email) && u.PasswordHash.Equals(senha))
+                        .AsNoTracking()
+                        .AnyAsync();
+                    // any verifica se tem alguma coisa, se tiver, vai retorna true
+                }
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
         }
     }
 }
