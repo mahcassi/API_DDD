@@ -12,7 +12,7 @@ namespace Infra.Configuracoes
     public class Contexto : IdentityDbContext<ApplicationUser>
     {
         // esse option que vai passar a string de conexão que vamos colocar na Startup
-        public Contexto(DbContextOptions<Contexto> opcoes) : base(opcoes) {}
+        public Contexto(DbContextOptions<Contexto> options) : base(options) { }
 
         public DbSet<Noticia> Noticia {  get; set; }
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
@@ -29,6 +29,7 @@ namespace Infra.Configuracoes
         {
             if(!optionsBuilder.IsConfigured)
             {
+                optionsBuilder.UseSqlServer(ObterStringConexao());
                 base.OnConfiguring(optionsBuilder);
             }
         }
