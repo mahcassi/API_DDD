@@ -45,14 +45,17 @@ namespace WebAPI.Controllers
 
             if (resultado)
             {
+                var idUsuario = await _IAplicationUsuario.RetornaIdUsuario(login.email);
+
                 var token = new TokenJWTBuilder()
                     .AddSecurityKey(JwtSecurityKey.Create("Secret_Key-12345678"))
                 .AddSubject("teste")
                 .AddIssuer("Teste.Securiry.Bearer")
                 .AddAudience("Teste.Securiry.Bearer")
-                .AddClaim("UsuarioAPINumero", "1")
+                .AddClaim("idUsuario", idUsuario)
                 .AddExpiry(5)
                 .Builder();
+
 
                 return Ok(token.value);
             } else
@@ -99,12 +102,14 @@ namespace WebAPI.Controllers
 
             if (resultado.Succeeded)
             {
+                var idUsuario = await _IAplicationUsuario.RetornaIdUsuario(login.email);
+
                 var token = new TokenJWTBuilder()
                     .AddSecurityKey(JwtSecurityKey.Create("Secret_Key-12345678"))
                 .AddSubject("teste")
                 .AddIssuer("Teste.Securiry.Bearer")
                 .AddAudience("Teste.Securiry.Bearer")
-                .AddClaim("UsuarioAPINumero", "1")
+                .AddClaim("idUsuario", idUsuario)
                 .AddExpiry(5)
                 .Builder();
 
