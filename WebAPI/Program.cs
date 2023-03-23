@@ -28,6 +28,7 @@ namespace WebAPI
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddCors();
             builder.Services.AddEntityFrameworkSqlServer()
                 .AddDbContext<Contexto>(
                    options =>
@@ -82,6 +83,9 @@ namespace WebAPI
             });
 
             var app = builder.Build();
+            var urlCliente1 = "https://dominiodocliente.com.br";
+
+            app.UseCors(b => b.WithOrigins(urlCliente1));
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
