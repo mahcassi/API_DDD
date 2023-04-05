@@ -5,6 +5,7 @@ using Infra.Repositorio.Genericos;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -25,6 +26,25 @@ namespace Infra.Repositorio
             using (var data = new Contexto(_optionsBuilder))
             {
                 return await data.Noticia.Where(exNoticia).AsNoTracking().ToListAsync();
+            }
+        }
+
+        public async Task<List<Noticia>> ListarNoticiasCustomizada()
+        {
+            using (var data = new Contexto(_optionsBuilder))
+            {
+                var listaNoticias = await (from noticia in data.Noticia
+                                     join usuario in data.ApplicationUser 
+                                     on noticia.UserId equals usuario.Id
+                                     select new Noticia
+                                     {
+                                        Id = noticia.Id,
+                                        Informacao = noticia.Informacao,
+                                        Titulo = noticia.Titulo,
+                                        DataCadastro = noticia.DataCadastro,
+                                        ApplicationUser = usuario
+                                     }).AsNoTracking().ToListAsync();
+                return listaNoticias;
             }
         }
     }
