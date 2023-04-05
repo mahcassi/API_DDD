@@ -83,9 +83,14 @@ namespace WebAPI
             });
 
             var app = builder.Build();
-            var urlCliente1 = "https://dominiodocliente.com.br";
+            var urlCliente = "http://localhost:4200";
+            app.UseCors(x => x
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .WithOrigins(urlCliente));
 
-            app.UseCors(b => b.WithOrigins(urlCliente1));
+            app.UseHttpsRedirection();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
